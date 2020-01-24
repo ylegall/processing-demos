@@ -2,24 +2,26 @@ package org.ygl.processing.demos
 
 import org.ygl.pkx.launchApplet
 import org.ygl.pkx.raidans
-import org.ygl.pkx.rect
+import org.ygl.pkx.ellipse
 import org.ygl.pkx.translate
 import org.ygl.pkx.withTransform
 import processing.core.PApplet
+import processing.core.PConstants
 
 private const val WIDTH = 800
 private const val HEIGHT = 800
 private const val TILE_SIZE = 16
+private const val DOT_SIZE = 12
 private const val WIDTH_IN_TILES = WIDTH / TILE_SIZE
-private const val ROTATION_DELTA = 1
+private const val ROTATION_DELTA = 3
 
-class RotatingTiles: PApplet() {
+class RotatingDots: PApplet() {
 
-    private val bgColor = color(32, 64, 128, 255)
-    private val tileColor = color(64, 128, 255, 255)
-    private val offsets = IntArray(WIDTH / TILE_SIZE * HEIGHT / TILE_SIZE) {
-        it % WIDTH_IN_TILES + it / WIDTH_IN_TILES
-    }
+    private val bgColor = color(64, 128, 255, 255)
+    private val tileColor = color(128, 64, 32, 255)
+    private val offsets = IntArray(WIDTH_IN_TILES * HEIGHT / TILE_SIZE) {
+        it
+    }.also { println(it) }
 
     override fun settings() {
         size(WIDTH, HEIGHT)
@@ -30,6 +32,7 @@ class RotatingTiles: PApplet() {
         background(bgColor)
         fill(tileColor)
         noStroke()
+        ellipseMode(PConstants.CORNER)
     }
 
     override fun draw() {
@@ -42,7 +45,7 @@ class RotatingTiles: PApplet() {
             withTransform {
                 translate(x + TILE_SIZE/2, y + TILE_SIZE/2)
                 rotate(raidans(offsets[i]))
-                rect(-TILE_SIZE/2, -TILE_SIZE/2, TILE_SIZE, TILE_SIZE)
+                ellipse(-TILE_SIZE/2, -TILE_SIZE/2, DOT_SIZE, DOT_SIZE)
             }
         }
 
@@ -50,5 +53,5 @@ class RotatingTiles: PApplet() {
 }
 
 fun main() {
-    launchApplet<RotatingTiles>()
+    launchApplet<RotatingDots>()
 }
