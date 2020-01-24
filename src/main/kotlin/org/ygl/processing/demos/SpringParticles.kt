@@ -66,7 +66,6 @@ class SpringParticles: PApplet() {
 
     private val bgColor = color(140, 150, 160)
     private var mousePosition: PVector? = null
-//    private val particles = List(WIDTH_IN_PARTICLES * HEIGHT / PARTICLE_SIZE) {
     private val particles = Array(WIDTH_IN_PARTICLES * HEIGHT / PARTICLE_SIZE) {
         Particle((it % WIDTH_IN_PARTICLES) * PARTICLE_SIZE, (it / WIDTH_IN_PARTICLES) * PARTICLE_SIZE)
     }
@@ -94,6 +93,5 @@ class SpringParticles: PApplet() {
 }
 
 fun main() {
-//    PApplet.launch("org.ygl.processing.demos.SpringParticles.INSTANCE.SpringParticleDemo")
     launchApplet<SpringParticles>()
 }
