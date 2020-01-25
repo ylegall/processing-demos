@@ -13,15 +13,13 @@ private const val HEIGHT = 800
 private const val TILE_SIZE = 16
 private const val DOT_SIZE = 12
 private const val WIDTH_IN_TILES = WIDTH / TILE_SIZE
+private const val HEIGHT_IN_TILES = HEIGHT / TILE_SIZE
 private const val ROTATION_DELTA = 3
 
 class RotatingDots: PApplet() {
 
-    private val bgColor = color(64, 128, 255, 255)
-    private val tileColor = color(128, 64, 32, 255)
-    private val offsets = IntArray(WIDTH_IN_TILES * HEIGHT / TILE_SIZE) {
-        it
-    }.also { println(it) }
+    private val bgColor = color(150, 121, 163, 255)
+    private val offsets = IntArray(WIDTH_IN_TILES * HEIGHT / TILE_SIZE) { it }
 
     override fun settings() {
         size(WIDTH, HEIGHT)
@@ -30,7 +28,6 @@ class RotatingDots: PApplet() {
     override fun setup() {
         frameRate(48f)
         background(bgColor)
-        fill(tileColor)
         noStroke()
         ellipseMode(PConstants.CORNER)
     }
@@ -42,6 +39,9 @@ class RotatingDots: PApplet() {
             val x = (i % WIDTH_IN_TILES) * TILE_SIZE
             val y = (i / WIDTH_IN_TILES) * TILE_SIZE
 
+            val blue = 255f - 255f * ((i.toFloat() / WIDTH_IN_TILES) / HEIGHT_IN_TILES)
+            val red = 255f - blue
+            fill(color(red, 69f, blue))
             withTransform {
                 translate(x + TILE_SIZE/2, y + TILE_SIZE/2)
                 rotate(raidans(offsets[i]))
